@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './user/dummy-users';
-import { CommonModule } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { TasksComponent } from './tasks/tasks.component';
 @Component({
   selector: 'app-root',
@@ -12,7 +12,8 @@ import { TasksComponent } from './tasks/tasks.component';
     RouterOutlet,
     HeaderComponent,
     UserComponent,
-    CommonModule,
+    NgFor,
+    NgIf,
     TasksComponent,
   ],
   templateUrl: './app.component.html',
@@ -20,11 +21,14 @@ import { TasksComponent } from './tasks/tasks.component';
 })
 export class AppComponent {
   users = DUMMY_USERS;
-  selectedUser = 'u1';
-  get selectedUserObj() {
-    return this.users.find((user) => user.id === this.selectedUser)!;
+  selectedUserId?: string;
+  get selectedUser() {
+    return this.users.find((user) => user.id === this.selectedUserId);
   }
   onSelectUser(id: string) {
-    this.selectedUser = id;
+    this.selectedUserId = id;
+  }
+  trackById(index: number, user: any) {
+    return user.id;
   }
 }
