@@ -5,6 +5,7 @@ import { UserComponent } from './user/user.component';
 import { DUMMY_USERS } from './user/dummy-users';
 import { NgFor, NgIf } from '@angular/common';
 import { TasksComponent } from './tasks/tasks.component';
+import { User } from './user/user.model';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,13 +23,14 @@ import { TasksComponent } from './tasks/tasks.component';
 export class AppComponent {
   users = DUMMY_USERS;
   selectedUserId?: string;
+  id: any;
   get selectedUser() {
     return this.users.find((user) => user.id === this.selectedUserId);
   }
   onSelectUser(id: string) {
     this.selectedUserId = id;
   }
-  trackById(index: number, user: any) {
+  trackById(index: number, user: User) {
     return user.id;
   }
 }
