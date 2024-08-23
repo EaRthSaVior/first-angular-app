@@ -3,7 +3,7 @@ import { NewTaskData } from './task/task.model';
 
 @Injectable({ providedIn: 'root' })
 export class TaskService {
-  private dummyTasks = [
+  private tasks = [
     {
       id: 't1',
       userId: 'u1',
@@ -29,21 +29,34 @@ export class TaskService {
     },
   ];
 
+  constructor() {
+    const tasks = localStorage.getItem('first-angular-app-tasks');
+    if (tasks) {
+      this.tasks = JSON.parse(tasks);
+    }
+  }
+
   addTask(taskData: NewTaskData, userId: string) {
-    this.dummyTasks.push({
+    this.tasks.push({
       id: new Date().getTime().toString(),
       userId,
       title: taskData.title,
       summary: taskData.summary,
       dueDate: taskData.dueDate,
     });
+    this.saveTasks();
   }
 
   getTasks(userId: string) {
-    return this.dummyTasks.filter((task) => task.userId === userId);
+    return this.tasks.filter((task) => task.userId === userId);
   }
 
   removeTask(taskId: string) {
-    this.dummyTasks = this.dummyTasks.filter((task) => task.id !== taskId);
+    this.tasks = this.tasks.filter((task) => task.id !== taskId);
+    this.saveTasks();
+  }
+
+  private saveTasks() {
+    localStorage.setItem('first-angular-app-tasks', JSON.stringify(this.tasks));
   }
 }

@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { NewTaskComponent } from './new-task/new-task.component';
 import { TaskService } from './task.service';
 import { TaskComponent } from './task/task.component';
@@ -15,8 +15,8 @@ export class TasksComponent {
   @Input({ required: true }) userId!: string;
   @Input({ required: true }) name!: string;
   isAddingTask = false;
-
-  constructor(private taskService: TaskService) {}
+  private taskService = inject(TaskService);
+  // constructor(private taskService: TaskService) {}
 
   get selectedUserTasks() {
     return this.taskService.getTasks(this.userId);
