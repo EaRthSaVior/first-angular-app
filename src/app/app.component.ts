@@ -8,15 +8,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { User } from './user/user.model';
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [
-    RouterOutlet,
-    HeaderComponent,
-    UserComponent,
-    NgFor,
-    NgIf,
-    TasksComponent,
-  ],
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
